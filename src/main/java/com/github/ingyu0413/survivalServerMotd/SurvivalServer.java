@@ -14,7 +14,12 @@ public final class SurvivalServer extends JavaPlugin implements Listener {
     }
 
     private String getworldtime() {
-        long gametime = Bukkit.getServer().getWorld("world").getTime() + 6000;
+        long gametime = Bukkit.getServer().getWorld("world").getTime();
+        if (gametime <= 18000) {
+            gametime += 6000;
+        } else if (gametime > 18000) {
+            gametime -= 18000;
+        }
         int hour = (int) gametime / 1000;
         int minute = (int) (gametime % 1000 / 1000.0 * 60);
         int second = (int) (gametime % 1000 / 1000.0 * 3600 % 60);
@@ -23,7 +28,7 @@ public final class SurvivalServer extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPaperServerListPing(PaperServerListPingEvent e) {
-        e.setMotd(ChatColor.BLUE + "" + ChatColor.BOLD + "키뮤의 아틀리에 비공식 마크서버" + ChatColor.RESET + " " + ChatColor.DARK_GRAY + getworldtime());
+        e.setMotd(ChatColor.BLUE + "" + ChatColor.BOLD + "24시간 생야생 마크서버" + ChatColor.RESET + " " + ChatColor.DARK_GRAY + getworldtime());
         e.getPlayerSample().clear();
     }
 }
